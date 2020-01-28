@@ -158,6 +158,35 @@ const actors = [{
   }]
 }];
 
+console.log("1st step");
+
+function ComputeTimeComp(rental)
+{
+	var pickUpDate= new Date(rental.pickupDate);
+	var returnDate= new Date(rental.returnDate);
+	var nbDays=(returnDate-pickUpDate)/(1000*60*60*24)+1;
+	console.log(nbDays);
+	return nbDays*cars.find(x => x.id === rental.carId).pricePerDay;
+}
+
+function ComputeDistComp(rental)
+{
+	return rental.distance*cars.find(x => x.id === rental.carId).pricePerKm;
+}
+
+rentals.forEach(function(rental,index)
+{
+	this[index].price=ComputeTimeComp(rental)+ComputeDistComp(rental);
+	console.log("Price "+index + " = " + this[index].price );
+	
+	
+},rentals)
+
+
+
+
+
+
 console.log(cars);
 console.log(rentals);
 console.log(actors);
